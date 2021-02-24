@@ -10,7 +10,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
+import Constants from "expo-constants";
 import axios from "axios";
 // colors
 import colors from "../assets/colors";
@@ -178,6 +180,7 @@ const styles = StyleSheet.create({
 
   signin_page: {
     alignItems: "center",
+    marginTop: Platform.OS === "android" ? Constants.statusBarHeight : 0,
   },
   signin_form: {
     width: "80%",

@@ -10,7 +10,9 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  Platform,
 } from "react-native";
+import Constants from "expo-constants";
 import axios from "axios";
 // colors
 import colors from "../assets/colors";
@@ -129,6 +131,9 @@ const styles = StyleSheet.create({
 
   login_page: {
     alignItems: "center",
+    flex: 1,
+    // marginTop: Constants.statusBarHeight,
+    marginTop: Platform.OS === "android" ? Constants.statusBarHeight : 0,
   },
   login_form: {
     width: "80%",
