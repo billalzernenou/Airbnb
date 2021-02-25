@@ -4,11 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+//containers
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
+import ArroundMe from "./containers/ArroundMe";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -67,6 +69,7 @@ export default function App() {
                   activeTintColor: "tomato",
                   inactiveTintColor: "gray",
                 }}
+                initialRouteName="ArroundMe"
               >
                 <Tab.Screen
                   name="Home"
@@ -92,20 +95,11 @@ export default function App() {
                       >
                         {() => <HomeScreen />}
                       </Stack.Screen>
-
-                      <Stack.Screen
-                        name="Profile"
-                        options={{
-                          title: "User Profile",
-                        }}
-                      >
-                        {() => <ProfileScreen />}
-                      </Stack.Screen>
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
                 <Tab.Screen
-                  name="Arround me"
+                  name="ArroundMe"
                   options={{
                     tabBarLabel: "Arround me",
                     tabBarIcon: ({ color, size }) => (
@@ -116,14 +110,15 @@ export default function App() {
                   {() => (
                     <Stack.Navigator>
                       <Stack.Screen
-                        name="Home"
+                        name="ArroundMe"
                         options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
+                          title: "ArroundMe",
+                          headerStyle: { backgroundColor: "tomato" },
                           headerTitleStyle: { color: "white" },
+                          headerShown: false,
                         }}
                       >
-                        {() => <HomeScreen />}
+                        {() => <ArroundMe />}
                       </Stack.Screen>
 
                       <Stack.Screen
@@ -161,31 +156,6 @@ export default function App() {
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
-
-                {/* <Tab.Screen
-                  name="Settings"
-                  options={{
-                    tabBarLabel: "Settings",
-                    tabBarIcon: ({ color, size }) => (
-                      <Ionicons
-                        name={"ios-options"}
-                        size={size}
-                        color={color}
-                      />
-                    ),
-                  }}
-                >
-                  {() => (
-                    <Stack.Navigator>
-                      <Stack.Screen
-                        name="Settings"
-                        options={{ title: "Settings", tabBarLabel: "Settings" }}
-                      >
-                        {() => <SettingsScreen setToken={setToken} />}
-                      </Stack.Screen>
-                    </Stack.Navigator>
-                  )}
-                </Tab.Screen> */}
               </Tab.Navigator>
             )}
           </Stack.Screen>
