@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
@@ -83,6 +83,42 @@ export default function App() {
                         name="Home"
                         options={{
                           title: "My App",
+                          headerStyle: {
+                            backgroundColor: "red",
+                          },
+                          headerTitleStyle: { color: "white" },
+                          headerShown: false,
+                        }}
+                      >
+                        {() => <HomeScreen />}
+                      </Stack.Screen>
+
+                      <Stack.Screen
+                        name="Profile"
+                        options={{
+                          title: "User Profile",
+                        }}
+                      >
+                        {() => <ProfileScreen />}
+                      </Stack.Screen>
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+                <Tab.Screen
+                  name="Arround me"
+                  options={{
+                    tabBarLabel: "Arround me",
+                    tabBarIcon: ({ color, size }) => (
+                      <Feather name="map-pin" size={size} color={color} />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator>
+                      <Stack.Screen
+                        name="Home"
+                        options={{
+                          title: "My App",
                           headerStyle: { backgroundColor: "red" },
                           headerTitleStyle: { color: "white" },
                         }}
@@ -102,6 +138,31 @@ export default function App() {
                   )}
                 </Tab.Screen>
                 <Tab.Screen
+                  name="Profile"
+                  options={{
+                    tabBarLabel: "My Profile",
+                    tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons
+                        name={"account"}
+                        size={size}
+                        color={color}
+                      />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator>
+                      <Stack.Screen
+                        name="Settings"
+                        options={{ title: "Settings", tabBarLabel: "Settings" }}
+                      >
+                        {() => <SettingsScreen setToken={setToken} />}
+                      </Stack.Screen>
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+
+                {/* <Tab.Screen
                   name="Settings"
                   options={{
                     tabBarLabel: "Settings",
@@ -124,7 +185,7 @@ export default function App() {
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
-                </Tab.Screen>
+                </Tab.Screen> */}
               </Tab.Navigator>
             )}
           </Stack.Screen>
