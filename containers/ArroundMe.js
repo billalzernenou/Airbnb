@@ -34,7 +34,7 @@ export default function ArroundMe() {
         }
         // get user location
         const loc = await Location.getCurrentPositionAsync({});
-        console.log(loc);
+
         setUserLocation(loc);
 
         const response = await axios.get(
@@ -46,8 +46,6 @@ export default function ArroundMe() {
         );
 
         if (response.data) {
-          //   console.log(response.data[0].location[0]);
-
           setoffers(response.data);
         } else {
           setErrorMsg("Something went wrong");

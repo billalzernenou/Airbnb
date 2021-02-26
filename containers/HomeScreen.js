@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
+//containers
+import offerScreen from "./RoomScreen";
 //components
 import Logo from "../components/Logo";
 import OnLoading from "../components/OnLoading";
@@ -21,10 +23,10 @@ const { brink_pink, grey, light_grey } = colors;
 
 import OfferItem from "../components/OfferItem";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [offers, setOffers] = useState([]);
   const [onLoading, setOnLoading] = useState(true);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   // Fetch Data
 
@@ -35,7 +37,6 @@ export default function HomeScreen() {
           "https://express-airbnb-api.herokuapp.com/rooms"
         );
         if (response.data) {
-          // console.log(response);
           setOffers(response.data);
           setOnLoading(false);
         }
@@ -61,7 +62,12 @@ export default function HomeScreen() {
   // render Item
   const renderItem = ({ item }) => {
     return (
-      <View style={styles.offer}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Room", { id: item._id });
+        }}
+        style={styles.offer}
+      >
         <Image
           source={{ uri: `${item.photos[0].url}` }}
           style={styles.offer_item_image}
@@ -89,7 +95,7 @@ export default function HomeScreen() {
             resizeMode="cover"
           />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

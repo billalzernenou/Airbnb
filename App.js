@@ -11,6 +11,7 @@ import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import ArroundMe from "./containers/ArroundMe";
+import RoomScreen from "./containers/RoomScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -69,7 +70,7 @@ export default function App() {
                   activeTintColor: "tomato",
                   inactiveTintColor: "gray",
                 }}
-                initialRouteName="ArroundMe"
+                // initialRouteName="ArroundMe"
               >
                 <Tab.Screen
                   name="Home"
@@ -87,13 +88,26 @@ export default function App() {
                         options={{
                           title: "My App",
                           headerStyle: {
-                            backgroundColor: "red",
+                            backgroundColor: "tomato",
                           },
                           headerTitleStyle: { color: "white" },
                           headerShown: false,
                         }}
                       >
-                        {() => <HomeScreen />}
+                        {(props) => <HomeScreen {...props} />}
+                      </Stack.Screen>
+                      <Stack.Screen
+                        name="Room"
+                        options={{
+                          title: "Room",
+                          headerStyle: {
+                            backgroundColor: "tomato",
+                          },
+                          headerTitleStyle: { color: "white" },
+                          // headerShown: false,
+                        }}
+                      >
+                        {(props) => <RoomScreen {...props} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
