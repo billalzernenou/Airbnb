@@ -28,22 +28,23 @@ export default function ArroundMe() {
         //ask user for permission to access gps coordinates
         const { status } = await Location.requestPermissionsAsync();
 
+        let response;
+
         if (status !== "granted") {
           setErrorMsg("Permission to access location was denied");
-          return;
+          response = await axios.get(
+            `https://express-airbnb-api.herokuapp.com/rooms/around`
+          );
+        } else {
+          // get user location
+
+          const loc = await Location.getCurrentPositionAsync({});
+
+          setUserLocation(loc);
+          response = await axios.get(
+            `https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${loc.coords.latitude}&longitude=${loc.coords.longitude}`
+          );
         }
-        // get user location
-        const loc = await Location.getCurrentPositionAsync({});
-
-        setUserLocation(loc);
-
-        const response = await axios.get(
-          "https://express-airbnb-api.herokuapp.com/rooms/around",
-          {
-            latitude: userLocation && userLocation.coords.latitude,
-            longitude: userLocation && userLocation.coords.longitude,
-          }
-        );
 
         if (response.data) {
           setoffers(response.data);
@@ -67,15 +68,13 @@ export default function ArroundMe() {
         style={styles.map}
         showsUserLocation={true}
         initialRegion={{
-          latitude: userLocation.coords.latitude,
-          longitude: userLocation.coords.longitude,
+          latitude: userLocation ? userLocation.coords.latitude : 48.85341,
+          longitude: userLocation ? userLocation.coords.longitude : 2.3488,
           latitudeDelta: 0.3,
           longitudeDelta: 0.3,
         }}
       >
         {offers.map((item, index) => {
-          {
-          }
           return (
             <MapView.Marker
               coordinate={{
@@ -89,10 +88,10 @@ export default function ArroundMe() {
         })}
         <MapView.Circle
           center={{
-            latitude: userLocation && userLocation.coords.latitude,
-            longitude: userLocation && userLocation.coords.longitude,
+            latitude: userLocation ? userLocation.coords.latitude : 48.85341,
+            longitude: userLocation ? userLocation.coords.longitude : 2.3488,
           }}
-          radius={10000}
+          radius={3000}
           strokeColor={brink_pink}
           fillColor="rgba(239, 104, 112, 0.3)"
         />
